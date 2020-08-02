@@ -1,20 +1,36 @@
-# Visual Explanation for Deep Metric Learning
+# Density map guided object detection in aerial image
 
-This work explores the visual explanation for deep metric learning and its applications. We show that the proposed framework can be directly deployed to a large range of metric learning applications and provides valuable information for understanding the model. See the arxiv paper for details.
+## Motivation
 
-We provide runnable demos for activation decomposition and Grad-CAM (with our variants) on Image Retrieval, Person Re-identification, Face Verification, and Geo-localization. If you find this repository useful in your project, please consider citing:
+Aerial image detection problem is challenging to solve for its unique properties. More objects are small (even something looks large on the ground), more pixels are background and more scale variance within images. Aside from that, data may be imbalanced in the real word. Not to say occlusions and truncations for some dense conditions.
 
-	@article{zhu2019visual,
-	  title={Visual Explanation for Deep Metric Learning},
-	  author={Zhu, Sijie and Yang, Taojiannan and Chen, Chen},
-	  journal={arXiv preprint arXiv:1909.12977},
-	  year={2019}
+In this paper, a novel method (DMNet) is proposed to enhance the performance of general detectors on aerial image dataset. The observation for the skewed distribution between foreground and background inspires our method, which leads to cropping strategy. By applying this, we want to remove as many background pixels as possible, which makes task easier.
+
+After reviewing recent literatures, we find density map, that is commonly shown in dense object counting(such as face counting), can aid our research. Density map has the ability to simplify detection problem to more unify manner. Instead of analyze the distribution/coordnations/categories for bounding boxes, why not to count their occurrence (pixels per cell), as we only need to crop them out as much as possible? Then we can define a threshold and filter out background in one shot. 
+
+That's how DMNet works. To further clarify, please check the following plots for the structure of DMNet. 
+
+If you are interested to more implementation details, please feel free to check the arxiv paper for more details.
+
+## Demo
+
+Here we provide demos for DMNet. The video comes from Visiondrone 2018 dataset, which is a typical dataset for aerial image detection. Feel free to have a check!
+
+If you find this repository useful in your project, please consider citing:
+
+	@misc{li2020density,
+	    title={Density Map Guided Object Detection in Aerial Images},
+	    author={Changlin Li and Taojiannan Yang and Sijie Zhu and Chen Chen and Shanyue Guan},
+	    year={2020},
+	    eprint={2004.05520},
+	    archivePrefix={arXiv},
+	    primaryClass={cs.CV}
 	}
 
 ## Requirement
-	- Python >= 3.5, Opencv, Numpy, Matplotlib
+	- Python >= 3.5, Opencv, Numpy, Matplotlib, tqdm
 	- PyTorch >= 1.0
-	- Tensorflow == 1.13.1 only for Geo-localization
+	- mmdetection >=2.0
 
 ## Image Retrieval
 Please download our pretrained model ([Multi_similarity](https://drive.google.com/open?id=1Wigw2bZfuPK5v2FSnqcsisIjVweTnb7l)) and put it in "./Image_Retrieval/Model/". Then run the demo:
