@@ -25,7 +25,7 @@ dataset(Train/val/test)
 --------Annotations (Optional, not available only when you conduct inference steps)
 
 Sample command line to run:
-python fusion
+python fusion_detection_result_official.py crop_data_fusion_mcnn_0.08 --mode val
 
 """
 
