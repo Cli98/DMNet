@@ -22,6 +22,10 @@ Code revised on : 7/15/2020
 Given dataset(train/val/test) generate ground truth for given dataset.
 Default format for source data: The input images are in jpg format and raw annotations are in txt format 
 (Based on Visiondrone 2018/19/20 dataset)
+
+Sample code to run:
+
+python Generate_density_map_official.py . gaussian_kernels.pkl distances_dict.pkl --mode val
 """
 
 
@@ -113,10 +117,6 @@ def gaussian_filter_density(non_zero_points, map_h, map_w, distances=None, kerne
         assert kernel_x_max > kernel_x_min
         assert kernel_y_max > kernel_y_min
 
-        # print(height, width, map_w, map_h)
-        # print(min_img_x,max_img_x, min_img_y,max_img_y)
-        # print(kernel_size, kernel_x_min,kernel_x_max, kernel_y_min,kernel_y_max)
-        # print(density_map[min_img_x:max_img_x, min_img_y:max_img_y].shape, kernel[kernel_x_min:kernel_x_max, kernel_y_min:kernel_y_max].shape)
         density_map[min_img_y:max_img_y, min_img_x:max_img_x] += kernel[kernel_y_min:kernel_y_max,
                                                                  kernel_x_min:kernel_x_max]
     return density_map
@@ -128,7 +128,7 @@ def get_gt_dots(ann_path, img_height, img_width, mode="train"):
     ** cliping is needed to prevent going out of the array
     """
     txt_list = open(ann_path, 'r').readlines()
-    gt = format_label(mode, txt_list, ann_path)
+    gt = format_label(mode, txt_list)
     assert gt.shape[1] == 3
     gt[:, 0] = gt[:, 0].clip(0, img_width - 1)
     gt[:, 1] = gt[:, 1].clip(0, img_height - 1)
@@ -203,7 +203,7 @@ def compute_distances(out_dist_path='distances_dict.pkl', raw_label_dir='.', n_n
         pickle.dump(distances_dict, f)
 
 
-def format_label(mode, txt_list, filename=None):
+def format_label(mode, txt_list):
     format_data = []
     # required format: xmin, ymin, xmax, ymax, class_id, clockwise direction
     # Given format: <bbox_left>,<bbox_top>,<bbox_width>,<bbox_height>,class_id
@@ -266,7 +266,7 @@ def parse_args():
                         help='the path to save precomputed distance')
     parser.add_argument('--image_prefix', default=".jpg", help='the path to save precomputed distance')
     parser.add_argument('--mode', default="train", help='Indicate if you are working on train/val/test set')
-    parser.add_argument('--showden', action='store_false', help='show results')
+    parser.add_argument('--showden', action='store_true', help='show results')
     args = parser.parse_args()
     return args
 
@@ -305,10 +305,8 @@ if __name__ == "__main__":
     with open(precomputed_distances_path, 'rb') as f:
         distances_dict = pickle.load(f)
 
-    # generate GT for part B
     data_root = mode
     img_paths = glob.glob(f'{root_dir}/{data_root}/images/*.jpg')
-    map_out_folder = 'maps_fixed_kernel/'
     method = 3
     const_sigma = 15
 
