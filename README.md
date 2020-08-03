@@ -14,7 +14,7 @@ That's how DMNet works. To further clarify, please check the following plots for
     <img width=620 height=210 src="Images/Figure 1.png"/>
 </p>
 
-If you are interested to see more details, please feel free to check the the arxiv paper for more details.
+If you are interested to see more details, please feel free to check the [paper](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w11/Li_Density_Map_Guided_Object_Detection_in_Aerial_Images_CVPRW_2020_paper.pdf) for more details.
 
 ## Demo
 
@@ -26,59 +26,117 @@ Here we provide one video demo for DMNet. The video comes from Visiondrone 2018 
 
 If you find this repository useful in your project, please consider citing:
 
-	@misc{li2020density,
-	    title={Density Map Guided Object Detection in Aerial Images},
-	    author={Changlin Li and Taojiannan Yang and Sijie Zhu and Chen Chen and Shanyue Guan},
-	    year={2020},
-	    eprint={2004.05520},
-	    archivePrefix={arXiv},
-	    primaryClass={cs.CV}
-	}
+    @InProceedings{Li_2020_CVPR_Workshops,
+        author = {Li, Changlin and Yang, Taojiannan and Zhu, Sijie and Chen, Chen and Guan, Shanyue},
+        title = {Density Map Guided Object Detection in Aerial Images},
+        booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+        month = {June},
+        year = {2020}
+    }
 
 ## Requirement
 	- Python >= 3.5, Opencv, Numpy, Matplotlib, tqdm
 	- PyTorch >= 1.0
 	- mmdetection >=2.0
 
-## Image Retrieval
-Please download our pretrained model ([Multi_similarity](https://drive.google.com/open?id=1Wigw2bZfuPK5v2FSnqcsisIjVweTnb7l)) and put it in "./Image_Retrieval/Model/". Then run the demo:
-	
-	python Image_Retrieval/demo.py
-<img width=280 height=210 src="Image_Retrieval/Images/Figure_1.png"/><img width=280 height=210 src="Image_Retrieval/Images/Figure_2.png"/><img width=280 height=210 src="Image_Retrieval/Images/Figure_3.png"/><img width=280 height=210 src="Image_Retrieval/Images/Figure_4.png"/><img width=280 height=210 src="Image_Retrieval/Images/Figure_5.png"/>
+## Dessity map generation
 
-You may download the [CUB](http://www.vision.caltech.edu/visipedia/CUB-200.html) dataset to generate more results. Enjoy!
+There are already state of art algorithms that can achieve satisfying results on density map generation. In DMNet, the density map generation modular uses MCNN to achieve the task. Yet there are many models can beat MCNN in terms of mean absolute error. How good they are turns out to be a further research direction for DMNet.
 
-## Person Re-identification
-Please download our pretrained model ([strong baseline](https://drive.google.com/open?id=1ZYsvJ3g8YuXDg8S7rtLApUOAb4peqDe2)) and put it in "./Person_Re-identification/Model/". Then run the demo:
+We introduce code from Ma to train [MCNN](https://github.com/CommissarMa/MCNN-pytorch). Since the code base is available online, we save the trouble to publish it again in DMNet.
 
-	python Person_Re-identification/demo.py
-<img width=280 height=210 src="Person_Re-identification/Images/Figure_1.png"/><img width=280 height=210 src="Person_Re-identification/Images/Figure_2.png"/><img width=280 height=210 src="Person_Re-identification/Images/Figure_3.png"/><img width=280 height=210 src="Person_Re-identification/Images/Figure_4.png"/><img width=280 height=210 src="Person_Re-identification/Images/Figure_5.png"/>
+The pretrain weight can be accessed [here](https://drive.google.com/file/d/1J--qH8_djZIsX3YUz9IkysWsfxzKXEqI/view?usp=sharing).
 
-You may download the [Market-1501](http://www.liangzheng.com.cn/Project/project_reid.html) dataset for more results. Enjoy!
+## Image cropping
 
-## Face Verification
-Please download our pretrained model ([arcface](https://drive.google.com/open?id=1YADdI8PahhpkiiHqDJmK1Bxz7VYIt_L2)) and put it in "./Face_Verification/Model/". Then run the demo:
+Once you obtained prediction of density map from density map generation modular, collect all of them and place it your dataset to run image cropping modular
 
-	python Face_Verification/demo.py
-<img width=280 height=210 src="Face_Verification/Images/Figure_1.png"/><img width=280 height=210 src="Face_Verification/Images/Figure_2.png"/><img width=280 height=210 src="Face_Verification/Images/Figure_3.png"/><img width=280 height=210 src="Face_Verification/Images/Figure_4.png"/><img width=280 height=210 src="Face_Verification/Images/Figure_5.png"/><img width=280 height=210 src="Face_Verification/Images/Figure_6.png"/>
+The data should be arranged in following structure before you call any function within this script:
 
-You may download the [LFW](http://vis-www.cs.umass.edu/lfw/) or [FIW](https://web.northeastern.edu/smilelab/fiw/) dataset for more results. Enjoy!
+dataset(Train/val/test)
 
-## Geo-localization
-Please download our pretrained model package ([Siamese-VGG](https://drive.google.com/open?id=1U8zvR6rfYY5A4TbeXuO8mwNjg0KiDQJz)) and put it in "./Geo-localization/Model/". Use `tar -xvf model.ckpt.tar` to extract. Then run the demo:
+--------images
 
-	python Geo-localization/demo.py
-<img width=280 height=210 src="Geo-localization/Images/Figure_1.png"/><img width=280 height=210 src="Geo-localization/Images/Figure_2.png"/><img width=280 height=210 src="Geo-localization/Images/Figure_3.png"/>
+--------dens (short for density map)
 
-Query pixel moving on the query street view image (left) The changing point-specific activation map on the retrieved aerial view image (right)
+--------Annotations (Optional, but not available only when you conduct inference steps)
 
-<img src="https://github.com/Jeff-Zilence/anonymous/blob/master/grd_show.gif"/><img width=300 height=300 src="https://github.com/Jeff-Zilence/anonymous/blob/master/grd_cam.gif"/>
+Sample running command:
 
-You may download the [CVUSA](https://github.com/viibridges/crossnet) dataset for more results. Enjoy!
-*A cleaner yet stronger model is coming soon!*
+python density_slide_window_official.py . HEIGHT_WIDTH THRESHOLD --output_folder Output_FolderName --mode val
+
+## Object detection
+
+After you obtain your density crops, collect crop images and annotations(txt format in Visiondrone 2018) and make them into proper annotations(COCO or VOC format). Then you can select any state of art object detection algorithm to train your model.
+
+For DMNet, MMdetection is selected as the tool for training Faster-Rcnn detectors.
+
+The pretrain weight can be accessed [here](https://drive.google.com/file/d/1tpO_58NLNIPXhOYnnaiifuqqLoLZT2i9/view?usp=sharing).
+
+If you are not familiar with the process to transform txt annotation to VOC/COCO format, please check
+
+1. create_VOC_annotation_official.py
+
+This script helps you Loading txt annotation and transform to VOC format
+The resulting images+annotations will be saved to indicated folders
+
+The data should be arranged in following structure before you call any function within this script:
+dataset(Train/val/test)
+
+--------images
+
+--------Annotations (Optional, not available only when you conduct inference steps)
+
+Sample command line to run:
+
+python create_VOC_annotation_official.py ./mcnn_0.08_train_data --h_split 2 --w_split 3 --output_folder
+FolderName --mode train
+
+2. VOC2coco_official.py
+
+Loading VOC annotation and transform to COCO format
+
+Normally it should be enough to extract your annotation to VOC format,
+which is supported by various of object detection framework. However,
+there does exist the needs to obtain annotation in COCO format. And
+this script can help you.
+
+
+The data should be arranged in following structure before you call any function within this script:
+dataset(Train/val/test)
+
+--------images
+
+--------Annotations (XML format, Optional, not available only when you conduct inference steps)
+
+Sample command line to run:
+
+python VOC2coco_official.py Folder_Name --mode train
+
+3. fusion_detection_result_official.py
+
+This script conducts Global-local fusion detection. Namely, the script will fuse detections from both original image and density crops. To use this script, please prepare your data in following structure:
+
+dataset(Train/val/test)
+
+-----mode(Train/val/test)
+
+------Global
+
+--------images
+
+--------Annotations (Optional, not available only when you conduct inference steps)
+
+------Density
+
+--------images
+
+--------Annotations (Optional, not available only when you conduct inference steps)
+
+Sample command line to run:
+
+python fusion_detection_result_official.py
 
 ## Reference
-	- https://github.com/bnu-wangxun/Deep_Metric
-	- https://github.com/lulujianjie/person-reid-tiny-baseline
-	- https://github.com/foamliu/InsightFace.git
-	- https://github.com/david-husx/crossview_localisation.git
+	- https://github.com/CommissarMa/MCNN-pytorch
+	- https://github.com/open-mmlab/mmdetection
