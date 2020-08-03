@@ -22,8 +22,8 @@ dataset(Train/val/test)
 --------Annotations (XML format, Optional, not available only when you conduct inference steps)
 
 Sample command line to run:
-python create_VOC_annotation_official.py ./mcnn_0.08_train_data --h_split 2 --w_split 3 --output_folder 
-FolderName --mode train 
+
+python VOC2coco_official.py Folder_Name --mode train
 """
 
 classList = ["pedestrian", "people", "bicycle", "car", "van", "truck", "tricycle", "awning-tricycle",
