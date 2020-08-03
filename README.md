@@ -6,15 +6,23 @@ Aerial image detection problem is challenging to solve for its unique properties
 
 In this paper, a novel method (DMNet) is proposed to enhance the performance of general detectors on aerial image dataset. The observation for the skewed distribution between foreground and background inspires our method, which leads to cropping strategy. By applying this, we want to remove as many background pixels as possible, which makes task easier.
 
-After reviewing recent literatures, we find density map, that is commonly shown in dense object counting(such as face counting), can aid our research. Density map has the ability to simplify detection problem to more unify manner. Instead of analyze the distribution/coordnations/categories for bounding boxes, why not to count their occurrence (pixels per cell), as we only need to crop them out as much as possible? Then we can define a threshold and filter out background in one shot. 
+After reviewing recent literature, we find density map, that is commonly shown in dense object counting(such as face counting), can aid our research. Density map has the ability to simplify detection problem to more unify manner. Instead of analyze the distribution/coordination/categories for bounding boxes, why not to count their occurrence (pixels per cell), as we only need to crop them out as much as possible? Then we can define a threshold and filter out background in one shot.
 
 That's how DMNet works. To further clarify, please check the following plots for the structure of DMNet. 
 
-If you are interested to more implementation details, please feel free to check the arxiv paper for more details.
+<p align="center">
+    <img width=620 height=210 src="Images/Figure 1.png"/>
+</p>
+
+If you are interested to see more details, please feel free to check the the arxiv paper for more details.
 
 ## Demo
 
-Here we provide demos for DMNet. The video comes from Visiondrone 2018 dataset, which is a typical dataset for aerial image detection. Feel free to have a check!
+Here we provide one video demo for DMNet. The video comes from Visiondrone 2018 dataset, which is a typical one for aerial image detection. Feel free to have a check!
+
+<p align="center">
+    <img width=600 height=337 src="Images/demo.gif"/>
+</p>
 
 If you find this repository useful in your project, please consider citing:
 
