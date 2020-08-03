@@ -71,7 +71,7 @@ After you obtain your density crops, collect crop images and annotations(txt for
 
 For DMNet, MMdetection is selected as the tool for training Faster-Rcnn detectors.
 
-The pretrain weight can be accessed [here](https://drive.google.com/file/d/1tpO_58NLNIPXhOYnnaiifuqqLoLZT2i9/view?usp=sharing).
+The pretrain weight can be accessed [here](https://drive.google.com/file/d/16Mu_U_znOn8HCQiBvXePjMQJI1Fjjri2/view?usp=sharing).
 
 If you are not familiar with the process to transform txt annotation to VOC/COCO format, please check
 
