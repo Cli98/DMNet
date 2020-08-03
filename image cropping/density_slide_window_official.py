@@ -22,7 +22,7 @@ dataset(Train/val/test)
 --------Annotations (Optional, but not available only when you conduct inference steps)
 
 Sample running command:
-python density_slide_window_official.py . 27_26 0.08 --output_folder mcnn_0.08_data --mode val
+python density_slide_window_official.py . height_width threshld --output_folder output_folder --mode val
 """
 
 
