@@ -5,7 +5,7 @@
 Object detection in high-resolution aerial images is a challenging task because of 1) the large variation in ob- ject size, and 2) non-uniform distribution of objects. A common solution is to divide the large aerial image into small (uniform) crops and then apply object detection on each small crop. In this paper, we investigate the image cropping strategy to address these challenges. Specifically, we propose a Density-Map guided object detection Network (DMNet), which is inspired from the observation that the object density map of an image presents how objects dis- tribute in terms of the pixel intensity of the map. As pixel intensity varies, it is able to tell whether a region has objects or not, which in turn provides guidance for cropping images statistically. DMNet has three key components: a density map generation module, an image cropping module and an object detector. DMNet generates a density map and learns scale information based on density intensities to form cropping regions. Extensive experiments show that DMNet achieves state-of-the-art performance on two popular aerial image datasets, i.e. VisionDrone [30] and UAVDT [4]. 
 
 <p align="center">
-    <img width=2142 height=568 src="Images/Figure 1.png"/>
+    <img width=620 height=210 src="Images/Figure 1.png"/>
 </p>
 
 If you are interested to see more details, please feel free to check the [paper](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w11/Li_Density_Map_Guided_Object_Detection_in_Aerial_Images_CVPRW_2020_paper.pdf) for more details.
