@@ -10,6 +10,8 @@ Object detection in high-resolution aerial images is a challenging task because 
 
 If you are interested to see more details, please feel free to check the [paper](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w11/Li_Density_Map_Guided_Object_Detection_in_Aerial_Images_CVPRW_2020_paper.pdf) for more details.
 
+If you have any questions, feel free to contact me via lcltopismine3@163.com or add my wechat (hichanglin)
+
 ## Demo
 
 Here we provide one video demo for DMNet. The video comes from Visiondrone 2018 dataset, which is a typical one for aerial image object detection. 
